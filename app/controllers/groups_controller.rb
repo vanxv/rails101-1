@@ -10,15 +10,16 @@ class GroupsController < ApplicationController
     end
 
     def show
-  	@group = Group.find(params[:id])
-    @posts = @group.posts.recent.paginate(:page =>params[:post], :per_page => 5)
-    end
+        @group = Group.find(params[:id])
+        @posts = @group.posts.recent.paginate(:page => params[:page], :per_page => 5)
+      end
+
 
     def create
 	@group =Group.new(group_params)
   	@group.user = current_user
 	if @group.save
-    corrent_user.join!(@group)
+    current_user.join!(@group)
     redirect_to groups_path
   else
     render :new
