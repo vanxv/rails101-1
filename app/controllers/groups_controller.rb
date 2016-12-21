@@ -38,8 +38,8 @@ end
   end
 
   def destroy
-    @group.destroy
-    redirect_to groups_path, alert: "Group deleted"
+    @group = Group.find(params[:group_id])
+    @post = Post.destroy
   end
 
   def join
