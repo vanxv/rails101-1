@@ -39,6 +39,32 @@ end
     @group.destroy
     redirect_to groups_path, alert: "Group deleted"
   end
+
+  def join
+    @group = Group.find(params[:id])
+
+    if !current_user.is_member_of?(@group)
+      current_user.join!(@group)
+      flash[:notice] = "JoinBoradDone! "
+    else
+      flash[:warning] = "You is Borad user!"
+    end
+
+    redirect_to group_path(@group)
+  end
+
+  def quit
+      @group = Group.find(params[:id])
+
+      if current_user.is_member_of?(@group)
+        current_user.quit!(@group)
+        flash[:alert] = "you out Board!"
+      else
+        flash[:warning] = "you Non't borad user,how out?"
+      end
+
+      redirect_to group_path(@group)
+    end
 private
 def find_group_and_check_permission
   @group = Group.find(params[:id])

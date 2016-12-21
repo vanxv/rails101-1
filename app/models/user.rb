@@ -14,7 +14,7 @@ class User < ApplicationRecord
     participated_groups << group
   end
 
-  def qiut!(group)
+  def quit!(group)
     participated_groups.delete(group)
   end
 end
